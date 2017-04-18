@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/visionmedia/bytes.js#readme"
-
-    >bytes (v2.5.0)</a>
+    <a href="https://github.com/visionmedia/bytes.js#readme">bytes (v2.5.0)</a>
 </h1>
 <h4>Utility to parse a string bytes to bytes and vice-versa</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.bytes">module bytes</a><ol>
 
@@ -152,11 +145,11 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function bytes(value, options) {
-  if (typeof value === &#x27;string&#x27;) {
+  if (typeof value === 'string') {
     return parse(value);
   }
 
-  if (typeof value === &#x27;number&#x27;) {
+  if (typeof value === 'number') {
     return format(value, options);
   }
 
@@ -180,23 +173,23 @@
   }
 
   var mag = Math.abs(value);
-  var thousandsSeparator = (options &#x26;&#x26; options.thousandsSeparator) || &#x27;&#x27;;
-  var unitSeparator = (options &#x26;&#x26; options.unitSeparator) || &#x27;&#x27;;
-  var decimalPlaces = (options &#x26;&#x26; options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
-  var fixedDecimals = Boolean(options &#x26;&#x26; options.fixedDecimals);
-  var unit = (options &#x26;&#x26; options.unit) || &#x27;&#x27;;
+  var thousandsSeparator = (options &amp;&amp; options.thousandsSeparator) || '';
+  var unitSeparator = (options &amp;&amp; options.unitSeparator) || '';
+  var decimalPlaces = (options &amp;&amp; options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
+  var fixedDecimals = Boolean(options &amp;&amp; options.fixedDecimals);
+  var unit = (options &amp;&amp; options.unit) || '';
 
   if (!unit || !map[unit.toLowerCase()]) {
-    if (mag &#x3e;= map.tb) {
-      unit = &#x27;TB&#x27;;
-    } else if (mag &#x3e;= map.gb) {
-      unit = &#x27;GB&#x27;;
-    } else if (mag &#x3e;= map.mb) {
-      unit = &#x27;MB&#x27;;
-    } else if (mag &#x3e;= map.kb) {
-      unit = &#x27;kB&#x27;;
+    if (mag &gt;= map.tb) {
+      unit = 'TB';
+    } else if (mag &gt;= map.gb) {
+      unit = 'GB';
+    } else if (mag &gt;= map.mb) {
+      unit = 'MB';
+    } else if (mag &gt;= map.kb) {
+      unit = 'kB';
     } else {
-      unit = &#x27;B&#x27;;
+      unit = 'B';
     }
   }
 
@@ -204,7 +197,7 @@
   var str = val.toFixed(decimalPlaces);
 
   if (!fixedDecimals) {
-    str = str.replace(formatDecimalsRegExp, &#x27;$1&#x27;);
+    str = str.replace(formatDecimalsRegExp, '$1');
   }
 
   if (thousandsSeparator) {
@@ -218,10 +211,10 @@
 ## Usage
 
 ```js
-var bytes = require(&#x27;bytes&#x27;);
+var bytes = require('bytes');
 ```
 
-#### bytes.<span class="apidocCodeKeywordSpan">format</span>(number value, [options]): string｜null
+#### bytes.<span class="apidocCodeKeywordSpan">format</span>(number value, [options]): stringï½œnull
 
 Format the given value in bytes into a string. If the value is negative, it is kept as such. If it is a float, it is
  rounded.
@@ -242,23 +235,23 @@ Format the given value in bytes into a string. If the value is negative, it is k
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function parse(val) {
-  if (typeof val === &#x27;number&#x27; &#x26;&#x26; !isNaN(val)) {
+  if (typeof val === 'number' &amp;&amp; !isNaN(val)) {
     return val;
   }
 
-  if (typeof val !== &#x27;string&#x27;) {
+  if (typeof val !== 'string') {
     return null;
   }
 
   // Test if the string passed is valid
   var results = parseRegExp.exec(val);
   var floatValue;
-  var unit = &#x27;b&#x27;;
+  var unit = 'b';
 
   if (!results) {
     // Nothing could be extracted from the given string
     floatValue = parseInt(val, 10);
-    unit = &#x27;b&#x27;
+    unit = 'b'
   } else {
     // Retrieve the value and the unit
     floatValue = parseFloat(results[1]);
@@ -268,14 +261,14 @@ Format the given value in bytes into a string. If the value is negative, it is k
   return Math.floor(map[unit] * floatValue);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-// output: &#x27;2kB&#x27;
+// output: '2kB'
 
-bytes(1024, {unitSeparator: &#x27; &#x27;});
-// output: &#x27;1 kB&#x27;
+bytes(1024, {unitSeparator: ' '});
+// output: '1 kB'
 
 ```
 
-#### bytes.<span class="apidocCodeKeywordSpan">parse</span>(string｜number value): number｜null
+#### bytes.<span class="apidocCodeKeywordSpan">parse</span>(stringï½œnumber value): numberï½œnull
 
 Parse the string value into an integer in bytes. If no unit is given, or `value`
 is a number, it is assumed the value is in bytes.
@@ -321,23 +314,23 @@ Supported units and abbreviations are as follows and are case-insensitive:
   }
 
   var mag = Math.abs(value);
-  var thousandsSeparator = (options &#x26;&#x26; options.thousandsSeparator) || &#x27;&#x27;;
-  var unitSeparator = (options &#x26;&#x26; options.unitSeparator) || &#x27;&#x27;;
-  var decimalPlaces = (options &#x26;&#x26; options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
-  var fixedDecimals = Boolean(options &#x26;&#x26; options.fixedDecimals);
-  var unit = (options &#x26;&#x26; options.unit) || &#x27;&#x27;;
+  var thousandsSeparator = (options &amp;&amp; options.thousandsSeparator) || '';
+  var unitSeparator = (options &amp;&amp; options.unitSeparator) || '';
+  var decimalPlaces = (options &amp;&amp; options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
+  var fixedDecimals = Boolean(options &amp;&amp; options.fixedDecimals);
+  var unit = (options &amp;&amp; options.unit) || '';
 
   if (!unit || !map[unit.toLowerCase()]) {
-    if (mag &#x3e;= map.tb) {
-      unit = &#x27;TB&#x27;;
-    } else if (mag &#x3e;= map.gb) {
-      unit = &#x27;GB&#x27;;
-    } else if (mag &#x3e;= map.mb) {
-      unit = &#x27;MB&#x27;;
-    } else if (mag &#x3e;= map.kb) {
-      unit = &#x27;kB&#x27;;
+    if (mag &gt;= map.tb) {
+      unit = 'TB';
+    } else if (mag &gt;= map.gb) {
+      unit = 'GB';
+    } else if (mag &gt;= map.mb) {
+      unit = 'MB';
+    } else if (mag &gt;= map.kb) {
+      unit = 'kB';
     } else {
-      unit = &#x27;B&#x27;;
+      unit = 'B';
     }
   }
 
@@ -345,7 +338,7 @@ Supported units and abbreviations are as follows and are case-insensitive:
   var str = val.toFixed(decimalPlaces);
 
   if (!fixedDecimals) {
-    str = str.replace(formatDecimalsRegExp, &#x27;$1&#x27;);
+    str = str.replace(formatDecimalsRegExp, '$1');
   }
 
   if (thousandsSeparator) {
@@ -359,10 +352,10 @@ Supported units and abbreviations are as follows and are case-insensitive:
 ## Usage
 
 ```js
-var bytes = require(&#x27;bytes&#x27;);
+var bytes = require('bytes');
 ```
 
-#### bytes.<span class="apidocCodeKeywordSpan">format</span>(number value, [options]): string｜null
+#### bytes.<span class="apidocCodeKeywordSpan">format</span>(number value, [options]): stringï½œnull
 
 Format the given value in bytes into a string. If the value is negative, it is kept as such. If it is a float, it is
  rounded.
@@ -388,23 +381,23 @@ Format the given value in bytes into a string. If the value is negative, it is k
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function parse(val) {
-  if (typeof val === &#x27;number&#x27; &#x26;&#x26; !isNaN(val)) {
+  if (typeof val === 'number' &amp;&amp; !isNaN(val)) {
     return val;
   }
 
-  if (typeof val !== &#x27;string&#x27;) {
+  if (typeof val !== 'string') {
     return null;
   }
 
   // Test if the string passed is valid
   var results = parseRegExp.exec(val);
   var floatValue;
-  var unit = &#x27;b&#x27;;
+  var unit = 'b';
 
   if (!results) {
     // Nothing could be extracted from the given string
     floatValue = parseInt(val, 10);
-    unit = &#x27;b&#x27;
+    unit = 'b'
   } else {
     // Retrieve the value and the unit
     floatValue = parseFloat(results[1]);
@@ -414,14 +407,14 @@ Format the given value in bytes into a string. If the value is negative, it is k
   return Math.floor(map[unit] * floatValue);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-// output: &#x27;2kB&#x27;
+// output: '2kB'
 
-bytes(1024, {unitSeparator: &#x27; &#x27;});
-// output: &#x27;1 kB&#x27;
+bytes(1024, {unitSeparator: ' '});
+// output: '1 kB'
 
 ```
 
-#### bytes.<span class="apidocCodeKeywordSpan">parse</span>(string｜number value): number｜null
+#### bytes.<span class="apidocCodeKeywordSpan">parse</span>(stringï½œnumber value): numberï½œnull
 
 Parse the string value into an integer in bytes. If no unit is given, or `value`
 is a number, it is assumed the value is in bytes.
@@ -459,3 +452,4 @@ Supported units and abbreviations are as follows and are case-insensitive:
     ]
 </div>
 </div>
+</body></html>

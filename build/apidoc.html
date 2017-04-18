@@ -63,6 +63,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.bytes.bytes">
+            function <span class="apidocSignatureSpan"></span>bytes
+            <span class="apidocSignatureSpan">(value, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.bytes.format">
             function <span class="apidocSignatureSpan">bytes.</span>format
             <span class="apidocSignatureSpan">(value, options)</span>
@@ -79,12 +88,83 @@
 
         </li>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bytes.toString">
+            function <span class="apidocSignatureSpan">bytes.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.bytes.format">module bytes.format</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bytes.format.format">
+            function <span class="apidocSignatureSpan">bytes.</span>format
+            <span class="apidocSignatureSpan">(value, options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.bytes.parse">module bytes.parse</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bytes.parse.parse">
+            function <span class="apidocSignatureSpan">bytes.</span>parse
+            <span class="apidocSignatureSpan">(val)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.bytes.toString">module bytes.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.bytes.toString.toString">
+            function <span class="apidocSignatureSpan">bytes.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.bytes" id="apidoc.module.bytes">module bytes</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.bytes.bytes" id="apidoc.element.bytes.bytes">
+        function <span class="apidocSignatureSpan"></span>bytes
+        <span class="apidocSignatureSpan">(value, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function bytes(value, options) {
+  if (typeof value === &#x27;string&#x27;) {
+    return parse(value);
+  }
+
+  if (typeof value === &#x27;number&#x27;) {
+    return format(value, options);
+  }
+
+  return null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -204,6 +284,170 @@ Supported units and abbreviations are as follows and are case-insensitive:
 
 * `b` for bytes
 ...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.bytes.toString" id="apidoc.element.bytes.toString">
+        function <span class="apidocSignatureSpan">bytes.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.bytes.format" id="apidoc.module.bytes.format">module bytes.format</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.bytes.format.format" id="apidoc.element.bytes.format.format">
+        function <span class="apidocSignatureSpan">bytes.</span>format
+        <span class="apidocSignatureSpan">(value, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function format(value, options) {
+  if (!numberIsFinite(value)) {
+    return null;
+  }
+
+  var mag = Math.abs(value);
+  var thousandsSeparator = (options &#x26;&#x26; options.thousandsSeparator) || &#x27;&#x27;;
+  var unitSeparator = (options &#x26;&#x26; options.unitSeparator) || &#x27;&#x27;;
+  var decimalPlaces = (options &#x26;&#x26; options.decimalPlaces !== undefined) ? options.decimalPlaces : 2;
+  var fixedDecimals = Boolean(options &#x26;&#x26; options.fixedDecimals);
+  var unit = (options &#x26;&#x26; options.unit) || &#x27;&#x27;;
+
+  if (!unit || !map[unit.toLowerCase()]) {
+    if (mag &#x3e;= map.tb) {
+      unit = &#x27;TB&#x27;;
+    } else if (mag &#x3e;= map.gb) {
+      unit = &#x27;GB&#x27;;
+    } else if (mag &#x3e;= map.mb) {
+      unit = &#x27;MB&#x27;;
+    } else if (mag &#x3e;= map.kb) {
+      unit = &#x27;kB&#x27;;
+    } else {
+      unit = &#x27;B&#x27;;
+    }
+  }
+
+  var val = value / map[unit.toLowerCase()];
+  var str = val.toFixed(decimalPlaces);
+
+  if (!fixedDecimals) {
+    str = str.replace(formatDecimalsRegExp, &#x27;$1&#x27;);
+  }
+
+  if (thousandsSeparator) {
+    str = str.replace(formatThousandsRegExp, thousandsSeparator);
+  }
+
+  return str + unitSeparator + unit;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+## Usage
+
+```js
+var bytes = require(&#x27;bytes&#x27;);
+```
+
+#### bytes.<span class="apidocCodeKeywordSpan">format</span>(number value, [options]): string｜null
+
+Format the given value in bytes into a string. If the value is negative, it is kept as such. If it is a float, it is
+ rounded.
+
+**Arguments**
+
+| Name    | Type   | Description        |
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.bytes.parse" id="apidoc.module.bytes.parse">module bytes.parse</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.bytes.parse.parse" id="apidoc.element.bytes.parse.parse">
+        function <span class="apidocSignatureSpan">bytes.</span>parse
+        <span class="apidocSignatureSpan">(val)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function parse(val) {
+  if (typeof val === &#x27;number&#x27; &#x26;&#x26; !isNaN(val)) {
+    return val;
+  }
+
+  if (typeof val !== &#x27;string&#x27;) {
+    return null;
+  }
+
+  // Test if the string passed is valid
+  var results = parseRegExp.exec(val);
+  var floatValue;
+  var unit = &#x27;b&#x27;;
+
+  if (!results) {
+    // Nothing could be extracted from the given string
+    floatValue = parseInt(val, 10);
+    unit = &#x27;b&#x27;
+  } else {
+    // Retrieve the value and the unit
+    floatValue = parseFloat(results[1]);
+    unit = results[4].toLowerCase();
+  }
+
+  return Math.floor(map[unit] * floatValue);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// output: &#x27;2kB&#x27;
+
+bytes(1024, {unitSeparator: &#x27; &#x27;});
+// output: &#x27;1 kB&#x27;
+
+```
+
+#### bytes.<span class="apidocCodeKeywordSpan">parse</span>(string｜number value): number｜null
+
+Parse the string value into an integer in bytes. If no unit is given, or `value`
+is a number, it is assumed the value is in bytes.
+
+Supported units and abbreviations are as follows and are case-insensitive:
+
+* `b` for bytes
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.bytes.toString" id="apidoc.module.bytes.toString">module bytes.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.bytes.toString.toString" id="apidoc.element.bytes.toString.toString">
+        function <span class="apidocSignatureSpan">bytes.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
