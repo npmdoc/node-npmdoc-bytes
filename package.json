@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "bytes",
-    "description": "api documentation for [bytes (v2.5.0)](https://github.com/visionmedia/bytes.js#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-bytes.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-bytes) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-bytes.svg)](https://travis-ci.org/npmdoc/node-npmdoc-bytes)",
+    "description": "#### api documentation for  [bytes (v2.5.0)](https://github.com/visionmedia/bytes.js#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-bytes.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-bytes) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-bytes.svg)](https://travis-ci.org/npmdoc/node-npmdoc-bytes)",
     "devDependencies": {
         "bytes": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
@@ -36,5 +36,5 @@
         "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
